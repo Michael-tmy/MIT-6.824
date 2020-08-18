@@ -1,0 +1,47 @@
+syntax = "proto3"
+
+package mrproto;
+
+service MapWorker{
+    rpc run_task (Task) returns (MapTaskReply) {}
+    rpc remote_read (InterFileLocs) returns (InterFileData) {}
+}
+
+service ReduceWorker{
+    rpc run_task (Task) returns (ReduceTaskReply) {}
+}
+
+message MapTaskReply{
+	message InterFileLoc{
+		string filepath = 1;
+		fixed32 offset = 2;
+		fixed32 length = 3; 
+	}
+
+	repeated InterFileLoc locs = 1;
+}
+
+message ReduceTaskReply{
+	repeated string filepaths = 1;
+}
+
+message Task{
+    repeated string filepaths = 1;
+}
+
+message InterFileLocs{
+	message InterFileLoc{
+		string filepath = 1;
+		fixed32 offset = 2;
+		fixed32 length = 3; 
+	}
+
+	repeated InterFileLoc locs = 1;
+}
+
+message InterFileData{
+	bytes data = 1;
+}
+
+
+

@@ -1,0 +1,17 @@
+syntax = "proto3"
+
+service Master{
+    rpc process_map_completion () returns (bool) {}
+    rpc process_reduce_completion () returns (bool) {}
+}
+
+message MapMsg{
+    string addr;
+    string filename;
+}
+
+message ReduceMsg{
+    string addr;
+    string filename;
+}
+
